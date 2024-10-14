@@ -1,6 +1,46 @@
-<script setup>
-import { ref } from 'vue';
-import { useDraggable } from 'vue-draggable-plus';
+
+<template>
+  <div class="container">
+      <nested-draggable v-model="list" class="types-list"/>
+
+      <nested-draggable v-model="list2" class="working-list"/>
+      <div class="json-div">
+        {{ JSON.stringify(list2, undefined, 2) }}
+      </div>
+  </div>
+</template>
+
+<style lang="css" scoped>
+  .container{
+    /* background-color: aqua; */
+    /* flex: 1; */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 500px;
+    border: 1px dashed;
+  }
+  .types-list{
+    width: 200px;
+    /* background-color: aquamarine; */
+  }
+  .working-list{
+    background-color: blanchedalmond;
+    width: 400px;
+  }
+  .cursor-move {
+    cursor: move;
+  }
+  .json-div {
+    background-color: darkcyan;
+    flex: 1;
+  }
+</style>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import NestedDraggable from '@/components/NestedComponent'
+import { VueDraggable } from 'vue-draggable-plus'
 
 // Types available to drag
 const types = ref([
@@ -75,143 +115,32 @@ const types = ref([
     }
 ]);
 
-// Main questionnaire list where items will be dropped
-const questions = ref([]);
 
-// Droppable working area refs
-const types_area = ref();
-const items_area = ref();
-
-// Clone the item when dragging from types list
-const cloneItem = (item) => {
-  return { type: item, children: [] }; // Return a new object to clone instead of move
-};
-
-// Drag and drop settings for types (prevent rearranging)
-useDraggable(types_area, types, {
-  animation: 150,
-  ghostClass: 'ghost',
-  group: {
-    name: 'questions',
-    pull: 'clone', // Allow items to be cloned
-    put: false     // Prevent putting items back into the types list
+const list = ref([
+  {
+    name: 'item 1',
+    item: [
+      {
+        name: 'item 2',
+        item: []
+      }
+    ]
   },
-  sort: false, // Disable sorting/rearranging in the types list
-  clone: cloneItem // Clone the dragged item
-});
-
-// Drag and drop settings for questions (allowing nesting and adding children)
-useDraggable(items_area, questions, {
-  animation: 150,
-  ghostClass: 'ghost',
-  group: {
-    name: 'questions',
-    pull: false,   // Prevent pulling from the working list back to the types
-    put: true      // Allow putting items into the working list and as children
+  {
+    name: 'item 3',
+    item: [
+      {
+        name: 'item 4',
+        item: []
+      }
+    ]
   },
-  onUpdate: () => {
-    console.log('Questions updated');
-  },
-  onAdd: (event) => {
-    console.log('Item added to working list', event);
-  },
-  remove: () => {
-    console.log('Question removed');
+  {
+    name: 'item 5',
+    item: []
   }
-});
+])
 
-// Function to remove an item from the working list
-const removeQuestion = (index) => {
-  questions.value.splice(index, 1); // Remove the item by its index
-};
+const list2 =  ref([])
+
 </script>
-
-<template>
-  <div class="container">
-    <!-- Types available to drag -->
-    <div class="types">
-      <section
-        class="flex flex-col gap-1 w-300px h-300px m-auto rounded overflow-auto"
-        ref="types_area"
-      >
-        <div
-          v-for="type in types"
-          :key="type"
-          class="cursor-move h-30 bg-gray-500/5 rounded p-3  hover:bg-gray-300"
-        >
-          {{ type.title }}
-        </div>
-      </section>
-    </div>
-
-    <!-- Working list of questions -->
-
-    <div class="working-list">
-        
-    <h2>{{ questions }}</h2>
-      <section
-        class="flex flex-col gap-2 p-4 w-300px h-300px m-auto bg-gray-500/5 rounded overflow-auto"
-        ref="items_area"
-      >
-        <div
-          v-for="(question, index) in questions"
-          :key="index"
-          class="question-item"
-        >
-            <div class="item_header">
-                <strong>{{ question.type.name }}</strong>
-                <button @click="removeQuestion(index)">Remove</button><!-- Remove button -->
-            </div>
-            
-            <section
-                class="nested"
-                style="border: 1px solid lightgray; padding: 10px; margin-top: 10px;"
-                ref="items_area"
-            >
-            </section>
-        </div>
-      </section>
-    </div>
-    
-  </div>
-</template>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  padding: 20px;
-}
-
-.types,
-.working-list {
-  border: 1px solid #ccc;
-  /* padding: 20px; */
-  width: 300px;
-  min-height: 200px;
-}
-
-.question-item {
-  padding: 10px;
-  border: 1px solid #000;
-  margin: 10px 0;
-}
-
-.nested {
-  /* margin-left: 10px; */
-  min-height: 50px;
-}
-
-button {
-  margin-left: 10px;
-  padding: 5px;
-  background-color: lightblue;
-  border: none;
-  cursor: pointer;
-}
-.item_header{
-    display: flex;
-    justify-content: space-between;
-}
-</style>

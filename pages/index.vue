@@ -8,40 +8,39 @@
     <HeaderComp/>
     <NavBarComp>
         <v-tabs-window-item value="editor">
-            <EditorView />
+            <EditorView/>
         </v-tabs-window-item>
         <v-tabs-window-item value="render">
-            <RenderView />
+            <RenderView class="page"/>
         </v-tabs-window-item>
     </NavBarComp>
-    <!-- <OptionsComp/> -->
 </template>
 
 <style scoped>
-    .container {
+    /* .boxer {
         width: 100%;
+    } */
+    .page {
+        width: 100%;
+        background-color: aquamarine;
+        flex: 1;
     }
-    
-    .tools_div{
-        /* background-color: rgb(13, 181, 125); */
+    /* .tools_div{
         width: 200px;
         height: 100%;
-    }
-    .render_div{
-        /* background-color: aquamarine; */
+    } */
+    /* .render_div{
         width: 400px;
         height: 100%;
-    }
-    .prop_div{
-        /* background-color: rgb(104, 157, 139); */
+    } */
+    /* .prop_div{
         width: 400px;
         height: 100%;
-    }
-    .json_div{
+    } */
+    /* .json_div{
         background-color: aquamarine;
-        /* flex: 1; */
         height: 150px;
         width: 150px;
-    }
+    } */
 </style>
   
