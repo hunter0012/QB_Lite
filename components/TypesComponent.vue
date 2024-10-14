@@ -3,11 +3,12 @@
     class="drag-area pl-2 pb-4" 
     tag="div" 
     v-model="list" 
-    group="g1"
+    :group="{ name: 'g1', pull: 'clone', put: false }"
+    :sort="false"
+    :clone-on-drop="true"
     >
       <div v-for="el in modelValue" :key="el.name" class="drag-item">
-        <p>item: {{ el.name }}</p>
-        <nested-component v-model="el.item"/>
+        <p>{{ el.name }}</p>
       </div>
     </VueDraggable>
   </template>

@@ -1,7 +1,7 @@
 
 <template>
   <div class="container">
-      <nested-draggable v-model="list" class="types-list"/>
+      <TypesComponent v-model="types" class="types-list"/>
 
       <nested-draggable v-model="list2" class="working-list"/>
       <div class="json-div">
@@ -48,70 +48,87 @@ const types = ref([
         icon: "mdi-group",
         name: "group",
         title: "Group",
+        item: []
     },{
         icon: "mdi-comment",
         name: "display",
         title: "Display",
+        item: []
     },{
         icon: "mdi-file-question",
         name: "question",
         title: "Question",
+        item: []
     },{
         icon: "mdi-checkbox-marked",
         name: "boolean",
         title: "Boolean",
+        item: []
     },{
         icon: "mdi-decimal",
         name: "decimal",
         title: "Decimal",
+        item: []
     },{
         icon: "mdi-numeric",
         name: "integer",
         title: "Integer",
+        item: []
     },{
         icon: "mdi-calendar-range",
         name: "date",
         title: "Date",
+        item: []
     },{
         icon: "mdi-calendar-clock",
         name: "dateTime",
         title: "Date Time",
+        item: []
     },{
         icon: "mdi-clock-outline",
         name: "time",
         title: "Time",
+        item: []
     },{
         icon: "mdi-format-text",
         name: "string",
         title: "String",
+        item: []
     },{
         icon: "mdi-text-box-outline",
         name: "name",
         title: "Name",
+        item: []
     },{
         icon: "mdi-link-variant",
         name: "url",
         title: "Url",
+        item: []
     },{
         icon: "mdi-form-select",
         name: "choice",
         title: "Choice",
+        item: []
     },{
         icon: "mdi-file-table-box-outline",
         name: "open-choice",
         title: "Open Choice",
+        item: []
     },{
         icon: "mdi-attachment",
         name: "attachment",
         title: "Attachment",
+        item: []
     },{
         icon: "mdi-link",
         name: "reference",
         title: "Reference",
+        item: []
     },{
         icon: "mdi-counter",
         name: "quantity",
         title: "Quantity",
+        item: []
     }
 ]);
 
